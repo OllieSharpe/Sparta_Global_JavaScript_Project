@@ -1,0 +1,33 @@
+* {
+  border: 0.5px solid black;
+}
+
+.top-box {
+  display: flex;
+}
+
+.center {
+  display: flex;
+  width: 33.3%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+  height: 200px;
+}
+
+.left-side {
+  width: 33.3%;
+}
+
+.right-side {
+  width: 33.3%;
+}
+
+.player-racer {
+  padding: 10px 25px;
+}
+
+.computer-racer {
+  padding: 10px 25px;
+}

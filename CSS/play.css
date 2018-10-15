@@ -25,9 +25,10 @@
 }
 
 .player-racer {
-  padding: 10px 25px;
+  padding-left: 10px
 }
 
 .computer-racer {
-  padding: 10px 25px;
+  padding-left: 10px;
+  text-align: left;
 }

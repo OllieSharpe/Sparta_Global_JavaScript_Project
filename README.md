@@ -1,0 +1,1 @@
+# Sparta_Global_Type_Game

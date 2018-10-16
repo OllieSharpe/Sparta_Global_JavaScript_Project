@@ -29,14 +29,15 @@ span {
 }
 
 .player-racer {
-  padding-left: 10px
+  padding-left: 25px;
 }
 
 .computer-racer {
-  padding-left: 10px;
-  text-align: left;
+  padding-left: 25px;
 }
 
 .word-display {
   text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }

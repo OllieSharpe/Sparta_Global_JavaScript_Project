@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
 // Creating a list of words for the type check
-  var words = ["Alfa","Bravo","Charlie","Delta","Echo"];
+  var words = ["Alfa","Banana","Bravo","Charlie","Delta","Echo","Function","Just a long string to ruin your day"];
 
 // Function which returns a word from the above list at random
   function getWord() {
@@ -65,7 +65,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
     };
   }
 
-// Test function to check the key logging process
+// function which cycles the process of checking the input words against the display
+// Enables typing on the main webpage
 
   function enableType() {
     var test_word = make_array(getWord());
@@ -75,47 +76,49 @@ document.addEventListener('DOMContentLoaded', function(event) {
     var stop = 0;
     var check = function checker(event) {
       if (event.key === array_check[tracker]) {
-        console.log("success");
         var span_id = tracker.toString();
         document.getElementById(span_id).style.backgroundColor = "green";
         tracker += 1;
+        if (position_player >= finish || position_computer >= finish) {
+          document.removeEventListener('keydown', check);
+          removeElements();
+        }
       }
       else {
-        console.log("failure");
         document.removeEventListener('keydown', check);
         var span_id = tracker.toString();
         document.getElementById(span_id).style.backgroundColor = "red";
-        document.removeEventListener('keydown', check);
         if (speed > 0) {
           speed -= 0.1;
         };
         setTimeout(function () {
           removeElements();
-          if (position_computer && position_player < finish) {
+          if (position_player < finish && position_computer < finish) {
             enableType();
           };
-        }, 200);
+        }, 400);
       };
       if (tracker == array_check.length){
-        console.log("word complete");
         document.removeEventListener('keydown', check);
         speed += 0.1;
         setTimeout(function () {
           removeElements();
-          if (position_computer && position_player < finish) {
+          if (position_player < finish && position_computer < finish) {
             enableType();
           };
-        }, 200);
+        }, 400);
       };
     };
     document.addEventListener('keydown', check);
   }
 
-  race();
 
-  enableType();
-
-
+// Event listener for the start button
+  document.getElementById("Start").addEventListener("click", function(event) {
+    document.getElementById("Start").disabled = true;
+    race();
+    enableType();
+  });
 
 
 });

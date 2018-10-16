@@ -63,19 +63,23 @@ document.addEventListener('DOMContentLoaded', function(event) {
   var position_computer = 25;
   var speed = 0;
   var finish = 1400;
-  var time = 0;
+  var record_time = 0;
   function race() {
     var racer_computer = document.getElementById('computer-racer');
     var racer_player = document.getElementById('player-racer');
     var id = setInterval(frame, 5);
-    var timer = setInterval(record, 100);
+    var timer = setInterval(record, 10);
     function record() {
       if (position_player >= finish || position_computer >= finish) {
         clearInterval(record);
       }
       else {
-        time += 0.1;
-        document.getElementById('timer').innerHTML = (Math.round(time*10)/10);
+        record_time += 0.01;
+        var intCheck = (Math.round(record_time*10));
+        console.log(intCheck);
+        if (Number.isInteger(intCheck)) {
+          document.getElementById('timer').innerHTML = (Math.round(record_time*10)/10);
+        };
       };
     };
     function frame() {

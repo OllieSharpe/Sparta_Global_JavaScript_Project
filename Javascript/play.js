@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
 // Creating a list of words for the type check
-  var words = ["Alfa","Banana","Bravo","Charlie","Delta","Echo","Function","Just a long string to ruin your day"];
+  var words = ["Alfa","Banana","Bravo","Charlie","Delta","Echo","Function","Just a long string to ruin your day","Server","Phone","Python","Happiness","Animal"];
 
 // Function which returns a word from the above list at random
   function getWord() {
@@ -63,10 +63,21 @@ document.addEventListener('DOMContentLoaded', function(event) {
   var position_computer = 25;
   var speed = 0;
   var finish = 1400;
+  var time = 0;
   function race() {
     var racer_computer = document.getElementById('computer-racer');
     var racer_player = document.getElementById('player-racer');
     var id = setInterval(frame, 5);
+    var timer = setInterval(record, 100);
+    function record() {
+      if (position_player >= finish || position_computer >= finish) {
+        clearInterval(record);
+      }
+      else {
+        time += 0.1;
+        document.getElementById('timer').innerHTML = (Math.round(time*10)/10);
+      };
+    };
     function frame() {
       if (position_player >= finish || position_computer >= finish) {
         clearInterval(id);

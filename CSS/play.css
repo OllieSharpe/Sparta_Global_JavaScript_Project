@@ -26,6 +26,7 @@ span {
 
 .right-side {
   width: 33.3%;
+  text-align: center;
 }
 
 .player-racer {
@@ -40,4 +41,8 @@ span {
   text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;
+}
+
+.output-message {
+  text-align: center;
 }

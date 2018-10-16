@@ -37,21 +37,27 @@ document.addEventListener('DOMContentLoaded', function(event) {
     return check_array;
   }
 
+// Function that removes the word from the display
+  function removeElements() {
+    document.getElementById("word-display").innerHTML = "";
+  }
+
 // MAIN CODE
 // Function currently moves the computer element at a constant rate across the screen to a fixed point
   var position_player = 25;
   var position_computer = 25;
+  var speed = 0;
+  var finish = 1400;
   function race() {
     var racer_computer = document.getElementById('computer-racer');
     var racer_player = document.getElementById('player-racer');
-    speed = 0;
     var id = setInterval(frame, 5);
     function frame() {
-      if (position_player >= 1400 || position_computer >= 1400) {
+      if (position_player >= finish || position_computer >= finish) {
         clearInterval(id);
       }
       else {
-        position_computer += 1;
+        position_computer += 0.3;
         position_player += speed;
         racer_computer.style.paddingLeft = (position_computer + "px");
         racer_player.style.paddingLeft = (position_player + "px");
@@ -59,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
     };
   }
 
-  race();
 // Test function to check the key logging process
 
   function enableType() {
@@ -71,39 +76,46 @@ document.addEventListener('DOMContentLoaded', function(event) {
     var check = function checker(event) {
       if (event.key === array_check[tracker]) {
         console.log("success");
+        var span_id = tracker.toString();
+        document.getElementById(span_id).style.backgroundColor = "green";
         tracker += 1;
       }
       else {
         console.log("failure");
         document.removeEventListener('keydown', check);
-        document.getElementById(tracker)
+        var span_id = tracker.toString();
+        document.getElementById(span_id).style.backgroundColor = "red";
+        document.removeEventListener('keydown', check);
+        if (speed > 0) {
+          speed -= 0.1;
+        };
+        setTimeout(function () {
+          removeElements();
+          if (position_computer && position_player < finish) {
+            enableType();
+          };
+        }, 200);
       };
       if (tracker == array_check.length){
         console.log("word complete");
         document.removeEventListener('keydown', check);
-      }
-      else {
+        speed += 0.1;
+        setTimeout(function () {
+          removeElements();
+          if (position_computer && position_player < finish) {
+            enableType();
+          };
+        }, 200);
       };
     };
     document.addEventListener('keydown', check);
   }
 
-  if (position_computer && position_player < 1400) {
-    enableType();
-  }
+  race();
+
+  enableType();
+
+
 
 
 });
-
-// if (tracker < array_check.length || stop == 0) {
-//   checker();
-// }
-// else if (stop == 1) {
-// console.log("stop = 1");
-// }
-// else if (tracker == array_check.length) {
-// console.log("success complete");
-// }
-// else {
-//   console.log("wrong");
-// };

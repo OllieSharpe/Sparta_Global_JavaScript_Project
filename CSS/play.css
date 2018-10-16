@@ -1,5 +1,9 @@
-* {
+/* * {
   border: 0.5px solid black;
+} */
+
+span {
+  font-size: 50px;
 }
 
 .top-box {
@@ -31,4 +35,8 @@
 .computer-racer {
   padding-left: 10px;
   text-align: left;
+}
+
+.word-display {
+  text-align: center;
 }

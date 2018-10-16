@@ -56,6 +56,48 @@ document.addEventListener('DOMContentLoaded', function(event) {
       document.getElementById("outcome").innerHTML = "Something went wrong";
     }
   }
+// sidenote: in progress
+// Function which updates the highscores array
+  function ordering(position, array) {
+    for (var i = position; i < (array.length); i++) {
+      array[i+1] = array[i];
+    }
+    array[position] = record_time_rounded;
+    array.splyce(5, 1);
+    ordered_array = array;
+    return ordered_array;
+  }
+
+// Function which checks for a highscore and updates the localStorage (currently bugged)
+  function highscore() {
+    var holder_names = localStorage.getItem("names");
+    var holder_scores = localStorage.getItem("scores");
+    var names;
+    var scores;
+    var pos = 0;
+    if (holder_names) {
+      names = JSON.parse(holder_names)
+    };
+    if (holder_scores) {
+      scores = JSON.parse(holder_scores)
+    };
+    console.log(scores);
+    console.log("3");
+    var record_time_rounded = (Math.round(record_time*10)/10);
+    if (record_time_rounded <= scores[4]) {
+      for (var i = 0; i < 4; i--) {
+        if (record_time_rounded >= scores[i]) {
+          pos = i;
+        };
+      }
+      console.log(ordering(pos, scores));
+    }
+    else {
+      // Do nothing
+    }
+  }
+
+// End side note
 
 // MAIN CODE
 // Function currently moves the computer element at a constant rate across the screen to a fixed point
@@ -76,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
       else {
         record_time += 0.01;
         var intCheck = (Math.round(record_time*10));
-        console.log(intCheck);
         if (Number.isInteger(intCheck)) {
           document.getElementById('timer').innerHTML = (Math.round(record_time*10)/10);
         };
@@ -87,13 +128,14 @@ document.addEventListener('DOMContentLoaded', function(event) {
         clearInterval(id);
       }
       else {
-        position_computer += 0.3;
+        position_computer += 1;
         position_player += speed;
         racer_computer.style.paddingLeft = (position_computer + "px");
         racer_player.style.paddingLeft = (position_player + "px");
       };
     };
   }
+
 
 // function which cycles the process of checking the input words against the display
 // Enables typing on the main webpage
@@ -160,6 +202,5 @@ document.addEventListener('DOMContentLoaded', function(event) {
     race();
     enableType();
   });
-
 
 });

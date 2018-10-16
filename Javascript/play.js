@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     return word_array;
   }
 
-// Function which takes the letters array and appends
+// Function which takes the letters array and places them succesively in spans which are diplayed in the html
   function displayWord(array) {
     for (var i = 0; i < array.length; i++) {
       var element = document.createElement("span");
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
   }
 
+// function converts an array to lowercase lettering, returns a new array.
   function lowercase(array) {
     var check_array = [];
     for (var i = 0; i < array.length; i++) {
@@ -36,36 +37,73 @@ document.addEventListener('DOMContentLoaded', function(event) {
     return check_array;
   }
 
-  function moveComputer() {
-    var racer = document.getElementById('computer-racer');
-    var pos = 25;
+// MAIN CODE
+// Function currently moves the computer element at a constant rate across the screen to a fixed point
+  var position_player = 25;
+  var position_computer = 25;
+  function race() {
+    var racer_computer = document.getElementById('computer-racer');
+    var racer_player = document.getElementById('player-racer');
+    speed = 0;
     var id = setInterval(frame, 5);
     function frame() {
-      if (pos >= 1400) {
+      if (position_player >= 1400 || position_computer >= 1400) {
         clearInterval(id);
       }
       else {
-        pos += 1;
-        racer.style.paddingLeft = (pos + "px");
-      }
-    }
+        position_computer += 1;
+        position_player += speed;
+        racer_computer.style.paddingLeft = (position_computer + "px");
+        racer_player.style.paddingLeft = (position_player + "px");
+      };
+    };
   }
 
-  function test() {
-    test_word = make_array(getWord());
+  race();
+// Test function to check the key logging process
+
+  function enableType() {
+    var test_word = make_array(getWord());
     displayWord(test_word);
-    array_check = lowercase(test_word);
-    document.addEventListener('keydown', function(event) {
-      if (event.key === array_check[0]) {
+    var array_check = lowercase(test_word);
+    var tracker = 0;
+    var stop = 0;
+    var check = function checker(event) {
+      if (event.key === array_check[tracker]) {
         console.log("success");
+        tracker += 1;
       }
       else {
         console.log("failure");
+        document.removeEventListener('keydown', check);
+        document.getElementById(tracker)
+      };
+      if (tracker == array_check.length){
+        console.log("word complete");
+        document.removeEventListener('keydown', check);
       }
-    });
-  };
+      else {
+      };
+    };
+    document.addEventListener('keydown', check);
+  }
 
-  test();
+  if (position_computer && position_player < 1400) {
+    enableType();
+  }
 
-  moveComputer();
+
 });
+
+// if (tracker < array_check.length || stop == 0) {
+//   checker();
+// }
+// else if (stop == 1) {
+// console.log("stop = 1");
+// }
+// else if (tracker == array_check.length) {
+// console.log("success complete");
+// }
+// else {
+//   console.log("wrong");
+// };

@@ -69,16 +69,20 @@ document.addEventListener('DOMContentLoaded', function(event) {
 // Enables typing on the main webpage
 
   function enableType() {
+    // Generating and displaying the word
     var test_word = make_array(getWord());
     displayWord(test_word);
     var array_check = lowercase(test_word);
     var tracker = 0;
     var stop = 0;
+    // Creating the function to run on key inputs
     var check = function checker(event) {
+      // Checking if the key press is correct
       if (event.key === array_check[tracker]) {
         var span_id = tracker.toString();
         document.getElementById(span_id).style.backgroundColor = "green";
         tracker += 1;
+        // Checks on each successful click whether the race has concluded
         if (position_player >= finish || position_computer >= finish) {
           document.removeEventListener('keydown', check);
           removeElements();

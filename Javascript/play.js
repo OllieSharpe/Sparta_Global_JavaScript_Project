@@ -42,6 +42,21 @@ document.addEventListener('DOMContentLoaded', function(event) {
     document.getElementById("word-display").innerHTML = "";
   }
 
+  function result() {
+    if (position_player > position_computer) {
+      document.getElementById("outcome").innerHTML = "You win";
+    }
+    else if (position_computer > position_player) {
+      document.getElementById("outcome").innerHTML = "You lose";
+    }
+    else if (position_player == position_computer) {
+      document.getElementById("outcome").innerHTML = "It's a tie";
+    }
+    else {
+      document.getElementById("outcome").innerHTML = "Something went wrong";
+    }
+  }
+
 // MAIN CODE
 // Function currently moves the computer element at a constant rate across the screen to a fixed point
   var position_player = 25;
@@ -86,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         if (position_player >= finish || position_computer >= finish) {
           document.removeEventListener('keydown', check);
           removeElements();
+          result();
         }
       }
       else {
@@ -99,6 +115,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
           removeElements();
           if (position_player < finish && position_computer < finish) {
             enableType();
+          }
+          else {
+            result();
           };
         }, 400);
       };
@@ -109,6 +128,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
           removeElements();
           if (position_player < finish && position_computer < finish) {
             enableType();
+          }
+          else {
+            result();
           };
         }, 400);
       };

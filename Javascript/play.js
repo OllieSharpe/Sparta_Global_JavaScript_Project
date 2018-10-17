@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
 // Creating a list of words for the type check
-  var words = ["Alfa","Above","Activity","Answer","Another one","Autumn","Animal","Banana","Begin","Birthday","Bravo","Breathe","Breakfast","Business","Candle","Cheap","Charlie","Common","Cmputer","Correct","Dangerous","Delta","Difficult","Depend","Draw","Duck","Echo","Function","Happiness","Just a long string to ruin your day","Server","Phone","Python",];
+  var words = ["Alfa","Above","Activity","Answer","Another one","Autumn","Animal","Banana","Begin","Birthday","Bravo","Breathe","Breakfast","Business","Candle","Cheap","Charlie","Common","Computer","Correct","Dangerous","Delta","Difficult","Depend","Draw","Duck","Echo","Function","Happiness","Just a long string to ruin your day","Server","Phone","Python",];
 
 // Function which returns a word from the above list at random
   function getWord() {
@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     document.getElementById("word-display").innerHTML = "";
   }
 
+// Function which compares the position of the player and computer to return the race result. (To be run on race completion)
   function result() {
     if (position_player > position_computer) {
       document.getElementById("outcome").innerHTML = "You win";
@@ -55,8 +56,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
     else {
       document.getElementById("outcome").innerHTML = "Something went wrong";
     }
+    document.getElementById("Start").value = "Restart";
+    document.getElementById("Start").disabled = false;
   }
-// sidenote: in progress
+
+// Sidenote: in progress
 // Function which updates the highscores array
   function ordering(position, array) {
     for (var i = position; i < (array.length); i++) {
@@ -100,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 // End side note
 
 // MAIN CODE
-// Function currently moves the computer element at a constant rate across the screen to a fixed point
+// Function (race) currently moves the computer and player element at a constant rate across the screen until they reach a fixed point
   var position_player = 25;
   var position_computer = 25;
   var speed = 0;
@@ -130,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         result();
       }
       else {
-        position_computer += 0.3;
+        position_computer += 1;
         position_player += speed;
         racer_computer.style.paddingLeft = (position_computer + "px");
         racer_player.style.paddingLeft = (position_player + "px");
@@ -178,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
           else {
             //result();
           };
-        }, 400);
+        }, 800);
       };
       if (tracker == array_check.length){
         document.removeEventListener('keydown', check);
@@ -200,6 +204,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 // Event listener for the start button
   document.getElementById("Start").addEventListener("click", function(event) {
+    position_player = 25;
+    position_computer = 25;
+    speed = 0;
+    record_time = 0;
+    document.getElementById("outcome").innerHTML = "";
     document.getElementById("Start").disabled = true;
     race();
     enableType();

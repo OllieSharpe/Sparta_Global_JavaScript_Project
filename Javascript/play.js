@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
 // Creating a list of words for the type check
-  var words = ["Alfa","Banana","Bravo","Charlie","Delta","Echo","Function","Just a long string to ruin your day","Server","Phone","Python","Happiness","Animal"];
+  var words = ["Alfa","Above","Activity","Answer","Another one","Autumn","Animal","Banana","Begin","Birthday","Bravo","Breathe","Breakfast","Business","Candle","Cheap","Charlie","Common","Cmputer","Correct","Delta","Echo","Function","Happiness","Just a long string to ruin your day","Server","Phone","Python",];
 
 // Function which returns a word from the above list at random
   function getWord() {
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     console.log("3");
     var record_time_rounded = (Math.round(record_time*10)/10);
     if (record_time_rounded <= scores[4]) {
-      for (var i = 0; i < 4; i--) {
+      for (var i = 0; i <= 4; i++) {
         if (record_time_rounded >= scores[i]) {
           pos = i;
         };
@@ -126,9 +126,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
     function frame() {
       if (position_player >= finish || position_computer >= finish) {
         clearInterval(id);
+        removeElements();
+        result();
       }
       else {
-        position_computer += 1;
+        position_computer += 0.3;
         position_player += speed;
         racer_computer.style.paddingLeft = (position_computer + "px");
         racer_player.style.paddingLeft = (position_player + "px");
@@ -158,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         if (position_player >= finish || position_computer >= finish) {
           document.removeEventListener('keydown', check);
           removeElements();
-          result();
+          //result();
         }
       }
       else {
@@ -174,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             enableType();
           }
           else {
-            result();
+            //result();
           };
         }, 400);
       };
@@ -187,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             enableType();
           }
           else {
-            result();
+            //result();
           };
         }, 400);
       };

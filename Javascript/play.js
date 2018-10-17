@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
+// var n = ["Computer 1","Computer 2","Computer 3","Computer 4","Computer 5"];
+// var s = [22.7, 22.8, 22.9, 23.0, 23.1];
+// var old_n = JSON.parse(localStorage.getItem("names"));
+// var old_s = JSON.parse(localStorage.getItem("scores"));
+// old_n = n;
+// old_s = s;
+// localStorage.setItem("names", JSON.stringify(old_n));
+// localStorage.setItem("scores", JSON.stringify(old_s));
+
 // Creating a list of words for the type check
   var words = ["Alfa","Above","Activity","Answer","Another one","Autumn","Animal","Banana","Begin","Birthday","Bravo","Breathe","Breakfast","Business","Candle","Cheap","Charlie","Common","Computer","Correct","Dangerous","Delta","Difficult","Depend","Draw","Duck","Echo","Function","Happiness","Just a long string to ruin your day","Server","Phone","Python",];
 
@@ -62,13 +71,14 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 // Sidenote: in progress
 // Function which updates the highscores array
-  function ordering(position, array) {
-    for (var i = position; i < (array.length); i++) {
-      array[i+1] = array[i];
+  function ordering(position, array, replace) {
+    array.push(0);
+    for (var i = (array.length - 1); i > position; i--) {
+      array[i] = array[i-1];
     }
-    array[position] = record_time_rounded;
-    array.splyce(5, 1);
-    ordered_array = array;
+    array[position] = replace;
+    array.splice(5, 1);
+    var ordered_array = array;
     return ordered_array;
   }
 
@@ -85,20 +95,33 @@ document.addEventListener('DOMContentLoaded', function(event) {
     if (holder_scores) {
       scores = JSON.parse(holder_scores)
     };
-    console.log(scores);
-    console.log("3");
     var record_time_rounded = (Math.round(record_time*10)/10);
     if (record_time_rounded <= scores[4]) {
-      for (var i = 0; i <= 4; i++) {
-        if (record_time_rounded >= scores[i]) {
+      var player_name = prompt("Highscore! Enter your name: ");
+      for (var i = 4; i >= 0; i--) {
+        if (record_time_rounded <= scores[i]) {
           pos = i;
         };
-      }
-      console.log(ordering(pos, scores));
+      };
+      scores = ordering(pos, scores, record_time_rounded);
+      names = ordering(pos, names, player_name);
+      localStorage.setItem("names", JSON.stringify(names));
+      localStorage.setItem("scores", JSON.stringify(scores));
+      for (var i = 0; i < 5; i++) {
+        document.getElementById(String(i)).innerHTML = names[i];
+      };
+      for (var i = 5; i < 10; i++) {
+        document.getElementById(String(i)).innerHTML = scores[i-5];
+      };
     }
     else {
-      // Do nothing
-    }
+      for (var i = 0; i < 5; i++) {
+        document.getElementById(String(i)).innerHTML = names[i];
+      };
+      for (var i = 5; i < 10; i++) {
+        document.getElementById(String(i)).innerHTML = scores[i-5];
+      };
+    };
   }
 
 // End side note
@@ -117,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     var timer = setInterval(record, 10);
     function record() {
       if (position_player >= finish || position_computer >= finish) {
-        clearInterval(record);
+        clearInterval(timer);
       }
       else {
         record_time += 0.01;
@@ -132,9 +155,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
         clearInterval(id);
         removeElements();
         result();
+        setTimeout(highscore, 500);
       }
       else {
-        position_computer += 1;
+        position_computer += 0.3;
         position_player += speed;
         racer_computer.style.paddingLeft = (position_computer + "px");
         racer_player.style.paddingLeft = (position_player + "px");

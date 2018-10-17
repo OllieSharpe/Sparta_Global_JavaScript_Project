@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     else {
       document.getElementById("outcome").innerHTML = "Something went wrong";
     }
-    document.getElementById("Start").value = "Restart";
+    document.getElementById("Start").value = "Refresh";
     document.getElementById("Start").disabled = false;
   }
 
@@ -188,8 +188,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         if (position_player >= finish || position_computer >= finish) {
           document.removeEventListener('keydown', check);
           removeElements();
-          //result();
-        }
+        };
       }
       else {
         document.removeEventListener('keydown', check);
@@ -202,9 +201,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
           removeElements();
           if (position_player < finish && position_computer < finish) {
             enableType();
-          }
-          else {
-            //result();
           };
         }, 800);
       };
@@ -215,9 +211,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
           removeElements();
           if (position_player < finish && position_computer < finish) {
             enableType();
-          }
-          else {
-            //result();
           };
         }, 400);
       };
@@ -226,16 +219,17 @@ document.addEventListener('DOMContentLoaded', function(event) {
   }
 
 
-// Event listener for the start button
+// Event listener for the start button, refreshes page on second click once the button value has been changed.
   document.getElementById("Start").addEventListener("click", function(event) {
-    position_player = 25;
-    position_computer = 25;
-    speed = 0;
-    record_time = 0;
-    document.getElementById("outcome").innerHTML = "";
-    document.getElementById("Start").disabled = true;
-    race();
-    enableType();
+    var button = document.getElementById("Start");
+    if (button.value === "Start") {
+      document.getElementById("Start").disabled = true;
+      race();
+      enableType();
+    }
+    else {
+      document.location.reload();
+    };
   });
 
 });

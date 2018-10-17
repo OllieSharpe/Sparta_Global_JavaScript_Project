@@ -2,6 +2,11 @@
   border: 0.5px solid black;
 } */
 
+body {
+  color: white;
+  background-color: dimGray;
+}
+
 span {
   font-size: 50px;
 }
@@ -29,12 +34,24 @@ span {
   text-align: center;
 }
 
+.race-box {
+  background-image: url(../Images/road.png);
+  background-size: contain;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .player-racer {
   padding-left: 25px;
 }
 
 .computer-racer {
   padding-left: 25px;
+}
+
+.car {
+  height: 40px;
+  width: 80;
 }
 
 .word-display {

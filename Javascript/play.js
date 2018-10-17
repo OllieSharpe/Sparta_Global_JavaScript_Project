@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
 // Creating a list of words for the type check
-  var words = ["Alfa","Above","Activity","Answer","Another one","Autumn","Animal","Banana","Begin","Birthday","Bravo","Breathe","Breakfast","Business","Candle","Cheap","Charlie","Common","Cmputer","Correct","Delta","Echo","Function","Happiness","Just a long string to ruin your day","Server","Phone","Python",];
+  var words = ["Alfa","Above","Activity","Answer","Another one","Autumn","Animal","Banana","Begin","Birthday","Bravo","Breathe","Breakfast","Business","Candle","Cheap","Charlie","Common","Cmputer","Correct","Dangerous","Delta","Difficult","Depend","Draw","Duck","Echo","Function","Happiness","Just a long string to ruin your day","Server","Phone","Python",];
 
 // Function which returns a word from the above list at random
   function getWord() {

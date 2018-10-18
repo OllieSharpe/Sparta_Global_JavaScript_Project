@@ -2,6 +2,11 @@
   border: 0.5px solid black;
 } */
 
+@font-face {
+  font-family: FerroRossoimport;
+  src: url("../Fonts/FerroRosso.ttf");
+}
+
 * {
   box-sizing: border-box;
 }
@@ -16,6 +21,8 @@ span {
   font-size: 50px;
   padding-left: 1px;
   padding-right: 1px;
+  font-family: sans-serif;
+  letter-spacing: 0px;
 }
 
 h2 {
@@ -51,7 +58,10 @@ h2 {
 
 .main-title {
   margin-top: 40px;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
+  font-family: FerroRossoimport;
+  font-size: 70px;
+  letter-spacing: 3px;
 }
 
 .left-side {
@@ -138,7 +148,7 @@ h2 {
 
 .car {
   height: 40px;
-  width: 80;
+  width: 80px;
 }
 
 .word-box {
@@ -151,6 +161,9 @@ h2 {
   padding-bottom: 0px;
   margin-top: 30px;
   margin-bottom: 30px;
+  /* font-family: FerroRossoimport;
+  font-size: 60px;
+  letter-spacing: 2px; */
 }
 
 .highscores {

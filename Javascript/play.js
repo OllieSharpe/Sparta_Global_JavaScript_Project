@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 // localStorage.setItem("scores", JSON.stringify(old_s));
 
 // Creating a list of words for the type check
-  var words = ["Alfa","Above","Activity","Answer","Another one","Autumn","Animal","Banana","Begin","Birthday","Bravo","Breathe","Breakfast","Business","Candle","Cheap","Charlie","Common","Computer","Correct","Dangerous","Delta","Difficult","Depend","Draw","Duck","Echo","Function","Happiness","Just a long string to ruin your day","Server","Phone","Python",];
+  var words = ["Above","Activity","Answer","Autumn","Animal","Banana","Begin","Birthday","Breathe","Breakfast","Business","Candle","Cheap","Common","Computer","Correct","Dangerous","Difficult","Depend","Draw","Duck","Echo","Education","Earth","Error","Example","Expansion","Family","Fiction","Flower","Friend","Fruit","Function","Government","Glass","Growth","Guide","Happiness","Hearing","Humour","History","Increase","Instrument","Invention","Jelly","Journey","Just a long string to ruin your day","Knowledge","Language","Learning","Letter","Liquid","Machine","Memory","Market","Mountain","Nation","Number","Noise","Offer","Opinion","Ornament","Paint","Payment","Person","Powder","Process","Property","Quality","Question","Reaction","Reason","Relation","Respect","Reward","science","Selection","Shade","Silver","Sleep","Smoke","Society","Substance","Server","Talk","Theory","Thought","Time","Trick","Twist","Turn","Verse","Voice","Walk","Water","Weather","Wind","Winter","Year","Phone","Python"];
 
 // Function which returns a word from the above list at random
   function getWord() {
@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
     else if (position_computer > position_player) {
       document.getElementById("word-display").innerHTML = "You lose";
+        console.log(position_computer);
     }
     else if (position_player == position_computer) {
       document.getElementById("word-display").innerHTML = "It's a tie";
@@ -65,11 +66,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
     else {
       document.getElementById("word-display").innerHTML = "Something went wrong";
     }
-    document.getElementById("Start").value = "Refresh";
-    document.getElementById("Start").disabled = false;
   }
 
-// Sidenote: in progress
 // Function which updates the highscores array
   function ordering(position, array, replace) {
     array.push(0);
@@ -145,7 +143,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
     localStorage.setItem("scores", JSON.stringify(scores));
   }
 
-// End side note
+// Function which increases the player speed for demonstration purposes.
+  function cheat() {
+    player_speed = 1;
+  }
+
 
 // MAIN CODE
 // Function (race) currently moves the computer and player element at a constant rate across the screen until they reach a fixed point
@@ -154,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   var speed = 0;
   var finish = 1400;
   var record_time = 0;
+  var player_speed = 0.1;
   function race() {
     var racer_computer = document.getElementById('computer-racer');
     var racer_player = document.getElementById('player-racer');
@@ -217,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
           var span_id = tracker.toString();
           document.getElementById(span_id).style.backgroundColor = "rgba(255,0,0,0.7)";
           if (speed > 0) {
-            speed -= 0.1;
+            speed -= player_speed;
           };
           setTimeout(function () {
             removeElements();
@@ -228,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         };
         if (tracker == array_check.length){
           document.removeEventListener('keydown', check);
-          speed += 0.1;
+          speed += player_speed;
           setTimeout(function () {
             removeElements();
             if (position_player < finish && position_computer < finish) {
@@ -249,7 +252,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
   document.getElementById("Start").addEventListener("click", function(event) {
     var button = document.getElementById("Start");
     if (button.value === "Start") {
+      document.getElementById("Start").value = "Reset";
       document.getElementById("Start").disabled = true;
+      document.getElementById("Start").disabled = false;
       race();
       enableType();
     }

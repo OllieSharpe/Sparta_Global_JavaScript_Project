@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 // Function which returns a word from the above list at random
   function getWord() {
     var number = Math.floor(Math.random() * words.length);
-    return words[number];
+    return words[number].toLowerCase();
   }
 
 // Function which splits a word into an array of individual letters
@@ -54,16 +54,16 @@ document.addEventListener('DOMContentLoaded', function(event) {
 // Function which compares the position of the player and computer to return the race result. (To be run on race completion)
   function result() {
     if (position_player > position_computer) {
-      document.getElementById("outcome").innerHTML = "You win";
+      document.getElementById("word-display").innerHTML = "You win";
     }
     else if (position_computer > position_player) {
-      document.getElementById("outcome").innerHTML = "You lose";
+      document.getElementById("word-display").innerHTML = "You lose";
     }
     else if (position_player == position_computer) {
-      document.getElementById("outcome").innerHTML = "It's a tie";
+      document.getElementById("word-display").innerHTML = "It's a tie";
     }
     else {
-      document.getElementById("outcome").innerHTML = "Something went wrong";
+      document.getElementById("word-display").innerHTML = "Something went wrong";
     }
     document.getElementById("Start").value = "Refresh";
     document.getElementById("Start").disabled = false;
@@ -124,6 +124,27 @@ document.addEventListener('DOMContentLoaded', function(event) {
     };
   }
 
+  function scores() {
+    var holder_names = localStorage.getItem("names");
+    var holder_scores = localStorage.getItem("scores");
+    var names;
+    var scores;
+    if (holder_names) {
+      names = JSON.parse(holder_names)
+    };
+    if (holder_scores) {
+      scores = JSON.parse(holder_scores)
+    };
+    for (var i = 0; i < 5; i++) {
+      document.getElementById(String(i)).innerHTML = names[i];
+    };
+    for (var i = 5; i < 10; i++) {
+      document.getElementById(String(i)).innerHTML = scores[i-5];
+    };
+    localStorage.setItem("names", JSON.stringify(names));
+    localStorage.setItem("scores", JSON.stringify(scores));
+  }
+
 // End side note
 
 // MAIN CODE
@@ -180,41 +201,46 @@ document.addEventListener('DOMContentLoaded', function(event) {
     // Creating the function to run on key inputs
     var check = function checker(event) {
       // Checking if the key press is correct
-      if (event.key === array_check[tracker]) {
-        var span_id = tracker.toString();
-        document.getElementById(span_id).style.backgroundColor = "green";
-        tracker += 1;
-        // Checks on each successful click whether the race has concluded
-        if (position_player >= finish || position_computer >= finish) {
+      if (position_player < finish && position_computer < finish) {
+        if (event.key === array_check[tracker]) {
+          var span_id = tracker.toString();
+          document.getElementById(span_id).style.backgroundColor = "rgba(0,255,0,0.6)";
+          tracker += 1;
+          // Checks on each successful click whether the race has concluded
+          if (position_player >= finish || position_computer >= finish) {
+            document.removeEventListener('keydown', check);
+            removeElements();
+          };
+        }
+        else {
           document.removeEventListener('keydown', check);
-          removeElements();
+          var span_id = tracker.toString();
+          document.getElementById(span_id).style.backgroundColor = "rgba(255,0,0,0.7)";
+          if (speed > 0) {
+            speed -= 0.1;
+          };
+          setTimeout(function () {
+            removeElements();
+            if (position_player < finish && position_computer < finish) {
+              enableType();
+            };
+          }, 800);
+        };
+        if (tracker == array_check.length){
+          document.removeEventListener('keydown', check);
+          speed += 0.1;
+          setTimeout(function () {
+            removeElements();
+            if (position_player < finish && position_computer < finish) {
+              enableType();
+            };
+          }, 400);
         };
       }
       else {
         document.removeEventListener('keydown', check);
-        var span_id = tracker.toString();
-        document.getElementById(span_id).style.backgroundColor = "red";
-        if (speed > 0) {
-          speed -= 0.1;
-        };
-        setTimeout(function () {
-          removeElements();
-          if (position_player < finish && position_computer < finish) {
-            enableType();
-          };
-        }, 800);
       };
-      if (tracker == array_check.length){
-        document.removeEventListener('keydown', check);
-        speed += 0.1;
-        setTimeout(function () {
-          removeElements();
-          if (position_player < finish && position_computer < finish) {
-            enableType();
-          };
-        }, 400);
-      };
-    };
+    }
     document.addEventListener('keydown', check);
   }
 
@@ -231,5 +257,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
       document.location.reload();
     };
   });
+
+  scores();
 
 });

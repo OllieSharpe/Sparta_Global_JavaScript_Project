@@ -11,17 +11,24 @@
     <div class="main-page">
       <div class="top-box">
         <div class="left-side">
-          <h5>Time:</h5>
-          <aside id="timer" class="timer">
-            0.0
-          </aside>
+          <div class="time-box">
+            <h5 class="word-time">Time</h5>
+            <aside id="timer" class="timer">
+              0.0
+            </aside>
+          </div>
         </div>
         <div class="center">
-          <h1>Type Dash</h1>
-          <input type="button" id="Start" name="Start" value="Start">
+          <h1 class="main-title">Type Racer</h1>
+          <input type="button" class="button-start" id="Start" name="Start" value="Start">
         </div>
         <div class="right-side">
-          <h3>Oliver Sharpe</h3>
+          <div class="instructions">
+            <h3 class="box1">How to play:</h3>
+            <p class="box2">Once the game starts, type the word or phrase that appears beneath the track. For each correct word you type, the speed of the Blue car will increase. An incorrect word will, however, cause you to lose speed. The aim of the game is to beat the Red car to the finish line. Good luck! </p>
+            <h4 class="box3">Click start to play!</h4>
+          </div>
+          <!-- <input type="button" class="button-view" id="instructions" name="" value="View instructions"> -->
         </div>
       </div>
       <div class="race-box">
@@ -37,34 +44,39 @@
         </div>
       </div>
       <div class="word-box">
-        <div id="word-display" class="word-display">
-        </div>
+        <h2 id="word-display" class="word-display">
+        </h2>
       </div>
-      <div class="message-box">
-        <div class="output-message">
-          <h2 id="outcome"></h2>
-        </div>
-      </div>
-      <div class="highscores">
-        <div class="score">
-          <h6 id="0"></h6>
-          <h6 id="5"></h6>
-        </div>
-        <div class="score">
-          <h6 id="1"></h6>
-          <h6 id="6"></h6>
-        </div>
-        <div class="score">
-          <h6 id="2"></h6>
-          <h6 id="7"></h6>
-        </div>
-        <div class="score">
-          <h6 id="3"></h6>
-          <h6 id="8"></h6>
-        </div>
-        <div class="score">
-          <h6 id="4"></h6>
-          <h6 id="9"></h6>
+      <div class="flex-box">
+        <h4 class="highscore-title">Highscores</h4>
+        <div class="highscores">
+          <div class="entries">
+            <div class="column first">
+              <p class="item one">1<sup>st</sup></p>
+              <p class="item" id="0"></p>
+              <p class="item" id="5"></p>
+            </div>
+            <div class="column second">
+              <p class="item one">2<sup>nd</sup></p>
+              <p class="item" id="1"></p>
+              <p class="item" id="6"></p>
+            </div>
+            <div class="column third">
+              <p class="item one">3<sup>rd</sup></p>
+              <p class="item" id="2"></p>
+              <p class="item" id="7"></p>
+            </div>
+            <div class="column fourth">
+              <p class="item one">4<sup>th</sup></p>
+              <p class="item" id="3"></p>
+              <p class="item" id="8"></p>
+            </div>
+            <div class="column fifth">
+              <p class="item one">5<sup>th</sup></p>
+              <p class="item" id="4"></p>
+              <p class="item" id="9"></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

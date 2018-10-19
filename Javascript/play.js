@@ -178,8 +178,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
       if (position_player >= finish || position_computer >= finish) {
         clearInterval(id);
         removeElements();
-        result();
-        setTimeout(highscore, 500);
+        setTimeout(result, 200);
+        setTimeout(highscore, 700);
       }
       else {
         position_computer += 0.3;

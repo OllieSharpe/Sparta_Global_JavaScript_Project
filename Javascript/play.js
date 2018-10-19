@@ -9,8 +9,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
 // localStorage.setItem("names", JSON.stringify(old_n));
 // localStorage.setItem("scores", JSON.stringify(old_s));
 
-// Creating a list of words for the type check
+//Creating a list of words for the type check
   var words = ["Above","Activity","Answer","Autumn","Animal","Banana","Begin","Birthday","Breathe","Breakfast","Business","Candle","Cheap","Common","Computer","Correct","Dangerous","Difficult","Depend","Draw","Duck","Echo","Education","Earth","Error","Example","Expansion","Family","Fiction","Flower","Friend","Fruit","Function","Government","Glass","Growth","Guide","Happiness","Hearing","Humour","History","Increase","Instrument","Invention","Jelly","Journey","Just a long string to ruin your day","Knowledge","Language","Learning","Letter","Liquid","Machine","Memory","Market","Mountain","Nation","Number","Noise","Offer","Opinion","Ornament","Paint","Payment","Person","Powder","Process","Property","Quality","Question","Reaction","Reason","Relation","Respect","Reward","science","Selection","Shade","Silver","Sleep","Smoke","Society","Substance","Server","Talk","Theory","Thought","Time","Trick","Twist","Turn","Verse","Voice","Walk","Water","Weather","Wind","Winter","Year","Phone","Python"];
+
+  // var words = ["cheat"];
 
 // Function which returns a word from the above list at random
   function getWord() {
@@ -147,6 +149,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
   function cheat() {
     player_speed = 1;
   }
+
+  document.getElementById("cheat").addEventListener("click", cheat);
 
 
 // MAIN CODE

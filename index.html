@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Play!</title>
+    <link rel="stylesheet" href="CSS/play.css">
+    <script type="text/javascript" src="javascript/play.js">
+    </script>
+  </head>
+  <body>
+
+    <div class="main-page">
+      <div class="top-box">
+        <div class="left-side">
+          <div class="time-box">
+            <h5 class="word-time">Time</h5>
+            <aside id="timer" class="timer">
+              0.0
+            </aside>
+          </div>
+        </div>
+        <div class="center">
+          <h1 class="main-title">Type Racer</h1>
+          <input type="button" class="button-start" id="Start" name="Start" value="Start">
+        </div>
+        <div class="right-side">
+          <div class="instructions">
+            <h3 class="box1">How to play:</h3>
+            <p class="box2">Once the game starts, type the word or phrase that appears beneath the track. For each correct word you type, the speed of the Blue car will increase. An incorrect word will, however, cause you to lose speed. The aim of the game is to beat the Red car to the finish line. Good luck! </p>
+            <h4 id="cheat" class="box3">Click start to play!</h4>
+          </div>
+        </div>
+      </div>
+      <div class="race-box">
+        <div class="computer-lane">
+          <div id="computer-racer" class="computer-racer">
+            <img class="car" src="Images/computer_car.png" alt="Computer">
+          </div>
+        </div>
+        <div class="player-lane">
+          <div id="player-racer" class="player-racer">
+            <img class="car" src="Images/player_car.png" alt="Player">
+          </div>
+        </div>
+      </div>
+      <div class="word-box">
+        <h2 id="word-display" class="word-display">
+        </h2>
+      </div>
+      <div class="flex-box">
+        <h4 class="highscore-title">Highscores</h4>
+        <div class="highscores">
+          <div class="entries">
+            <div class="column first">
+              <p class="item one">1<sup>st</sup></p>
+              <p class="item" id="0"></p>
+              <p class="item" id="5"></p>
+            </div>
+            <div class="column second">
+              <p class="item one">2<sup>nd</sup></p>
+              <p class="item" id="1"></p>
+              <p class="item" id="6"></p>
+            </div>
+            <div class="column third">
+              <p class="item one">3<sup>rd</sup></p>
+              <p class="item" id="2"></p>
+              <p class="item" id="7"></p>
+            </div>
+            <div class="column fourth">
+              <p class="item one">4<sup>th</sup></p>
+              <p class="item" id="3"></p>
+              <p class="item" id="8"></p>
+            </div>
+            <div class="column fifth">
+              <p class="item one">5<sup>th</sup></p>
+              <p class="item" id="4"></p>
+              <p class="item" id="9"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

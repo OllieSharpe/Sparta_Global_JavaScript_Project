@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
+// //Code resets the high-score values within local storage back to the default values
 // var n = ["Computer 1","Computer 2","Computer 3","Computer 4","Computer 5"];
 // var s = [22.7, 22.8, 22.9, 23.0, 23.1];
 // var old_n = JSON.parse(localStorage.getItem("names"));
@@ -11,8 +12,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 //Creating a list of words for the type check
   var words = ["Above","Activity","Answer","Autumn","Animal","Banana","Begin","Birthday","Breathe","Breakfast","Business","Candle","Cheap","Common","Computer","Correct","Dangerous","Difficult","Depend","Draw","Duck","Echo","Education","Earth","Error","Example","Expansion","Family","Fiction","Flower","Friend","Fruit","Function","Government","Glass","Growth","Guide","Happiness","Hearing","Humour","History","Increase","Instrument","Invention","Jelly","Journey","Just a long string to ruin your day","Knowledge","Language","Learning","Letter","Liquid","Machine","Memory","Market","Mountain","Nation","Number","Noise","Offer","Opinion","Ornament","Paint","Payment","Person","Powder","Process","Property","Quality","Question","Reaction","Reason","Relation","Respect","Reward","science","Selection","Shade","Silver","Sleep","Smoke","Society","Substance","Server","Talk","Theory","Thought","Time","Trick","Twist","Turn","Verse","Voice","Walk","Water","Weather","Wind","Winter","Year","Phone","Python"];
-
-  // var words = ["cheat"];
 
 // Function which returns a word from the above list at random
   function getWord() {
@@ -82,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     return ordered_array;
   }
 
-// Function which checks for a highscore and updates the localStorage (currently bugged)
+// Function which checks for a highscore and updates the localStorage. Function also updates the score board within the HTML (To be run on race completion).
   function highscore() {
     var holder_names = localStorage.getItem("names");
     var holder_scores = localStorage.getItem("scores");
@@ -124,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     };
   }
 
+// Function which displays the current highscores on the webpage from local stroage.
   function scores() {
     var holder_names = localStorage.getItem("names");
     var holder_scores = localStorage.getItem("scores");
@@ -267,6 +267,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     };
   });
 
+// Displays hghscores on page load.
   scores();
 
 });

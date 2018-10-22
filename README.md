@@ -1,5 +1,7 @@
 # Sparta_Global_Type_Game
 
+
+
 To begin the game, press the start button at the top of the webpage. Once the game has begun, words will appear beneath the track and the Red (computer controlled) car will begin racing towards the finish line. The Blue (player controlled) car will speed up by a fixed amount after each word is typed correctly. Incorrectly typing a word will cause the car to lose an equal amount of speed. The objective of the game is to beat the Red car to the finish line. If your time beats one of the five high-scores displayed, you will be given a prompt for your name and your time will be added to the list. After the first click, the start button will convert to a reset button which will refresh the game page.
 
 Sprint 1:

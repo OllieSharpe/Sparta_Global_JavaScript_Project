@@ -249,6 +249,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
           setTimeout(function () {
             removeElements();
             if (position_player < finish && position_computer < finish) {
+              // Recall function to display next word
               enableType();
             };
           }, 800);
@@ -261,6 +262,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             removeElements();
             // Delay next word by 0.4 seconds. Less than for incorrect words to reduce user mistakes.
             if (position_player < finish && position_computer < finish) {
+              // Recall funcion to display next word
               enableType();
             };
           }, 400);
@@ -270,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         document.removeEventListener('keydown', check);
       };
     }
+    // Enable the event listener for the keyboard
     document.addEventListener('keydown', check);
   }
 

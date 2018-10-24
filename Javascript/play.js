@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   function cheat() {
     player_speed = 1;
     document.getElementById("cheat").innerHTML += " (Cheat mode)";
+    document.getElementById("cheat").removeEventListener("click", cheat);
   }
 
   // Event listener runs the cheat function when the "Click start to play text is clicked"

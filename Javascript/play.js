@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
-// //Code resets the high-score values within local storage back to the default values
+// // Code resets the high-score values within local storage back to the default values
 // var n = ["Computer 1","Computer 2","Computer 3","Computer 4","Computer 5"];
 // var s = [22.7, 22.8, 22.9, 23.0, 23.1];
 // var old_n = JSON.parse(localStorage.getItem("names"));
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
           pos = i;
         };
       };
-      // Update the scores and names arrays then wrte them back to local storage
+      // Update the scores and names arrays then write them back to local storage
       scores = ordering(pos, scores, record_time_rounded);
       names = ordering(pos, names, player_name);
       localStorage.setItem("names", JSON.stringify(names));
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     };
   }
 
-// Function which displays the current highscores on the webpage from local stroage.
+// Function which displays the current highscores on the webpage from local storage.
   function scores() {
     var holder_names = localStorage.getItem("names");
     var holder_scores = localStorage.getItem("scores");

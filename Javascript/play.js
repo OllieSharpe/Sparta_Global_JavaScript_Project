@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
+// -- Alina: Better to remove dead code.  
 // // Code resets the high-score values within local storage back to the default values
 // var n = ["Computer 1","Computer 2","Computer 3","Computer 4","Computer 5"];
 // var s = [22.7, 22.8, 22.9, 23.0, 23.1];
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   }
 
 // Function which splits a word into an array of individual letters
+// -- Alina: It seems you don't need this function. Name issue: camelCase.   
   function make_array(word) {
     var word_array = [];
     for (var i = 0; i < word.length; i++) {
@@ -39,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   }
 
 // function converts an array to lowercase lettering, returns a new array.
+// -- Alina: Not really clear name for the function.  
   function lowercase(array) {
     var check_array = [];
     for (var i = 0; i < array.length; i++) {
@@ -48,11 +51,13 @@ document.addEventListener('DOMContentLoaded', function(event) {
   }
 
 // Function that removes the word from the display
+// -- Alina: Naming: removeWord/hideWord ?  
   function removeElements() {
     document.getElementById("word-display").innerHTML = "";
   }
 
 // Function which compares the position of the player and computer to return the race result. (To be run on race completion)
+// -- Alina: Naming and try to avoid global variables (position_player, position_computer).   
   function result() {
     if (position_player > position_computer) {
       document.getElementById("word-display").innerHTML = "You win";
@@ -70,19 +75,29 @@ document.addEventListener('DOMContentLoaded', function(event) {
   }
 
 // Function which updates the highscores array
+  // -- Alina:
+  // function name is unclear.
+  // "splice" changes source array. It's better to keep arguments unchanged and return new object as a result.
+  // "replace" is not a good name for argument (it would be inserted, not replaced). 
+  // Function could be simpler: 
+  // var before = array.slice(0, position);
+  // var after = array.slice(position);
+  // return before.concat(inserted, after).slice(0, Math.min(array.length + 1, 5));
   function ordering(position, array, replace) {
     array.push(0);
     for (var i = (array.length - 1); i > position; i--) {
       array[i] = array[i-1];
     }
     array[position] = replace;
-    array.splice(5, 1);
+    array.splice(5, 1); 
     var ordered_array = array;
     return ordered_array;
   }
 
 // Function which checks for a highscore and updates the localStorage. Function also updates the score board within the HTML (To be run on race completion).
   function highscore() {
+    // -- Alina: better to use array of objects { name : "X", score : Y } instead of two separate arrays 
+    // It's also will reduce number of operations/loops ect 
     var holder_names = localStorage.getItem("names");
     var holder_scores = localStorage.getItem("scores");
     var names;
@@ -90,11 +105,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
     var pos = 0;
     // Extraxt values from local storage
     if (holder_names) {
-      names = JSON.parse(holder_names)
+      names = JSON.parse(holder_names);
     };
     if (holder_scores) {
-      scores = JSON.parse(holder_scores)
+      scores = JSON.parse(holder_scores);
     };
+    // --  Alina: Naming and global undeclared variable "record_time"
     var record_time_rounded = (Math.round(record_time*10)/10);
     // Check if the users time is a highscore
     if (record_time_rounded <= scores[4]) {
@@ -112,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
       localStorage.setItem("scores", JSON.stringify(scores));
       // Write updated high scores to page
       for (var i = 0; i < 5; i++) {
+      // -- Alina: It's better to have more informative "Id", then numbers   
         document.getElementById(String(i)).innerHTML = names[i];
       };
       for (var i = 5; i < 10; i++) {
@@ -130,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   }
 
 // Function which displays the current highscores on the webpage from local storage.
+// -- Alina: DRY (scores() and highscore()), also naming is not good.  
   function scores() {
     var holder_names = localStorage.getItem("names");
     var holder_scores = localStorage.getItem("scores");
@@ -168,6 +186,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 // MAIN CODE
 // Function (race) currently moves the computer and player element at a constant rate across the screen until they reach a fixed point
   // Defining global variables
+  
+  // -- Alina: variable names not clear and it might be better to have objects with all information 
+  // for example player { position: x, speed: y, ... }
   var position_player = 25;
   var position_computer = 25;
   var speed = 0;
@@ -195,6 +216,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         };
       };
     };
+    // -- Alina: naming
     function frame() {
       // If the race has concluded stop the cars. Delay for 0.2 seconds and diplay the result. Delay for a further 0.5 seocnds then alert if a highscore is acheived.
       if (position_player >= finish || position_computer >= finish) {
@@ -283,6 +305,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     var button = document.getElementById("Start");
     if (button.value === "Start") {
       document.getElementById("Start").value = "Reset";
+      // -- Alina: ??? this will work as "= false"
       document.getElementById("Start").disabled = true;
       document.getElementById("Start").disabled = false;
       race();
@@ -296,4 +319,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
 // Displays hghscores on page load.
   scores();
 
+  // -- Alina: it would be good to try register event handlers once and don't call removeEventListener later.
+  // Such approach might be better on bigger projects.
+  // For example, "check" function can verify condition that the game is still running and if it's false, then return;
+  // 
+  // Still it's very nice job for the fifth week. 
+  // 
 });

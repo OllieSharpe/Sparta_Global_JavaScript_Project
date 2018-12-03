@@ -1,4 +1,4 @@
-# Sparta_Global_Type_Game
+# JavaScript Project - Type Racer
 
 This project aimed to create a fully functional, browser-based, game using HTML5, CSS and JavaScript. The project involved 2 sprints and had core requirements of: must be fully functional, well styled, must display a win/loss message or deliver a score and it must feature instructions on how to play (to be displayed on page or linked too). This game features two additional bonus features: player vs computer functionality and a high-score feature which uses local storage (with the latter not being covered during the course and therefore researched independently).
 

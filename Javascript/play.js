@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   }
 
 // function converts an array to lowercase lettering, returns a new array.
-  function lowercase(array) {
+  function convertToLowercase(array) {
     var check_array = [];
     for (var i = 0; i < array.length; i++) {
       check_array.push(array[i].toLowerCase());
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   }
 
 // Function that removes the word from the display
-  function removeElements() {
+  function removeWord() {
     document.getElementById("word-display").innerHTML = "";
   }
 
@@ -71,89 +71,63 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
   }
 
-// Function which updates the highscores array
-  function ordering(position, array, replace) {
-    array.push(0);
-    for (var i = (array.length - 1); i > position; i--) {
-      array[i] = array[i-1];
-    }
-    array[position] = replace;
-    array.splice(5, 1);
-    var ordered_array = array;
-    return ordered_array;
+  function extractFromLocalstorage() {
+    var names = JSON.parse(localStorage.getItem("names"));
+    var scores = JSON.parse(localStorage.getItem("scores"));
+    var array_of_names_and_scores = [];
+    for (var i = 0; i < names.length; i++) {
+      array_of_names_and_scores.push({"name": names[i], "score": scores[i]})
+    };
+    return array_of_names_and_scores;
   }
 
-// Function which checks for a highscore and updates the localStorage. Function also updates the score board within the HTML (To be run on race completion).
-  function highscore() {
-    var holder_names = localStorage.getItem("names");
-    var holder_scores = localStorage.getItem("scores");
-    var names;
-    var scores;
-    var pos = 0;
-    // Extraxt values from local storage
-    if (holder_names) {
-      names = JSON.parse(holder_names)
+  function writeToLocalstorage(array_of_objects) {
+    var names = [];
+    var scores = [];
+    for (var i = 0; i < array_of_objects.length; i++) {
+      names.push(array_of_objects[i]['name']);
+      scores.push(array_of_objects[i]['score']);
     };
-    if (holder_scores) {
-      scores = JSON.parse(holder_scores)
-    };
-    var record_time_rounded = (Math.round(record_time*10)/10);
-    // Check if the users time is a highscore
-    if (record_time_rounded <= scores[4]) {
-      var player_name = prompt("Highscore! Enter your name: ");
-      // Records where their value belongs on the leader board
-      for (var i = 4; i >= 0; i--) {
-        if (record_time_rounded <= scores[i]) {
-          pos = i;
-        };
-      };
-      // Update the scores and names arrays then write them back to local storage
-      scores = ordering(pos, scores, record_time_rounded);
-      names = ordering(pos, names, player_name);
-      localStorage.setItem("names", JSON.stringify(names));
-      localStorage.setItem("scores", JSON.stringify(scores));
-      // Write updated high scores to page
-      for (var i = 0; i < 5; i++) {
-        document.getElementById(String(i)).innerHTML = names[i];
-      };
-      for (var i = 5; i < 10; i++) {
-        document.getElementById(String(i)).innerHTML = scores[i-5];
-      };
-    }
-    else {
-      // Write back to local storage if no changes are made
-      for (var i = 0; i < 5; i++) {
-        document.getElementById(String(i)).innerHTML = names[i];
-      };
-      for (var i = 5; i < 10; i++) {
-        document.getElementById(String(i)).innerHTML = scores[i-5];
-      };
-    };
-  }
-
-// Function which displays the current highscores on the webpage from local storage.
-  function scores() {
-    var holder_names = localStorage.getItem("names");
-    var holder_scores = localStorage.getItem("scores");
-    var names;
-    var scores;
-    // Extraxt values from local storage
-    if (holder_names) {
-      names = JSON.parse(holder_names)
-    };
-    if (holder_scores) {
-      scores = JSON.parse(holder_scores)
-    };
-    // Write them to the page
-    for (var i = 0; i < 5; i++) {
-      document.getElementById(String(i)).innerHTML = names[i];
-    };
-    for (var i = 5; i < 10; i++) {
-      document.getElementById(String(i)).innerHTML = scores[i-5];
-    };
-    // Write them back to local storage
     localStorage.setItem("names", JSON.stringify(names));
     localStorage.setItem("scores", JSON.stringify(scores));
+  }
+
+  function writeScoresToPage(array_of_objects) {
+    for (var i = 0; i < 5; i++) {
+      document.getElementById(String(i)).innerHTML = array_of_objects[i]['name'];
+    };
+    for (var i = 5; i < 10; i++) {
+      document.getElementById(String(i)).innerHTML = array_of_objects[i-5]['score'];
+    };
+  }
+
+  function bubbleSort(array_of_objects) {
+    var swapped;
+    do {
+      swapped = false;
+      for (var i=0; i < array_of_objects.length-1; i++) {
+        if (array_of_objects[i]['score'] > array_of_objects[i+1]['score']) {
+          var temp = array_of_objects[i];
+          array_of_objects[i] = array_of_objects[i+1];
+          array_of_objects[i+1] = temp;
+          swapped = true;
+        }
+      };
+    } while (swapped);
+    return array_of_objects;
+  }
+
+  function updateHighscores() {
+    var current_highscores = extractFromLocalstorage();
+    var new_score = (Math.round(record_time*10)/10);
+    if (new_score < current_highscores[4]['score']) {
+      var player_name = prompt("Highscore! Enter your name: ");
+      current_highscores[4]['name'] = player_name;
+      current_highscores[4]['score'] = new_score;
+      var new_scores = bubbleSort(current_highscores);
+      writeToLocalstorage(new_scores);
+      writeScoresToPage(new_scores);
+    };
   }
 
 // Cheat function which increases the player speed for demonstration purposes.
@@ -201,9 +175,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
       // If the race has concluded stop the cars. Delay for 0.2 seconds and diplay the result. Delay for a further 0.5 seocnds then alert if a highscore is acheived.
       if (position_player >= finish || position_computer >= finish) {
         clearInterval(id);
-        removeElements();
+        removeWord();
         setTimeout(result, 200);
-        setTimeout(highscore, 700);
+        setTimeout(updateHighscores, 700);
       }
       // If the race is ongoing update the cars x-position by the specifed amounts.
       else {
@@ -223,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     // Generating and displaying the word
     var test_word = makeArray(getWord());
     displayWord(test_word);
-    var array_check = lowercase(test_word);
+    var array_check = convertToLowercase(test_word);
     var tracker = 0;
     var stop = 0;
     // Creating the function to run on key inputs
@@ -237,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
           // Checks on each successful click whether the race has concluded
           if (position_player >= finish || position_computer >= finish) {
             document.removeEventListener('keydown', check);
-            removeElements();
+            removeWord();
           };
         }
         else {
@@ -250,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
           };
           // Delay next word by 0.8 seconds
           setTimeout(function () {
-            removeElements();
+            removeWord();
             if (position_player < finish && position_computer < finish) {
               // Recall function to display next word
               enableType();
@@ -262,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
           document.removeEventListener('keydown', check);
           speed += player_speed;
           setTimeout(function () {
-            removeElements();
+            removeWord();
             // Delay next word by 0.4 seconds. Less than for incorrect words to reduce user mistakes.
             if (position_player < finish && position_computer < finish) {
               // Recall funcion to display next word
@@ -296,6 +270,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
   });
 
 // Displays hghscores on page load.
-  scores();
+  // rewriteHighscores();
+  writeScoresToPage(extractFromLocalstorage());
+  console.log(extractFromLocalstorage());
 
 });

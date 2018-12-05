@@ -1,17 +1,19 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
-// // Code resets the high-score values within local storage back to the default values
-// var n = ["Computer 1","Computer 2","Computer 3","Computer 4","Computer 5"];
-// var s = [22.7, 22.8, 22.9, 23.0, 23.1];
-// var old_n = JSON.parse(localStorage.getItem("names"));
-// var old_s = JSON.parse(localStorage.getItem("scores"));
-// old_n = n;
-// old_s = s;
-// localStorage.setItem("names", JSON.stringify(old_n));
-// localStorage.setItem("scores", JSON.stringify(old_s));
-
 //Creating a list of words for the type check
   var words = ["Above","Activity","Answer","Autumn","Animal","Banana","Begin","Birthday","Breathe","Breakfast","Business","Candle","Cheap","Common","Computer","Correct","Dangerous","Difficult","Depend","Draw","Duck","Echo","Education","Earth","Error","Example","Expansion","Family","Fiction","Flower","Friend","Fruit","Function","Government","Glass","Growth","Guide","Happiness","Hearing","Humour","History","Increase","Instrument","Invention","Jelly","Journey","Just a long string to ruin your day","Knowledge","Language","Learning","Letter","Liquid","Machine","Memory","Market","Mountain","Nation","Number","Noise","Offer","Opinion","Ornament","Paint","Payment","Person","Powder","Process","Property","Quality","Question","Reaction","Reason","Relation","Respect","Reward","science","Selection","Shade","Silver","Sleep","Smoke","Society","Substance","Server","Talk","Theory","Thought","Time","Trick","Twist","Turn","Verse","Voice","Walk","Water","Weather","Wind","Winter","Year","Phone","Python"];
+
+// Function resets the high-score values within local storage back to the default values
+  function rewriteHighscores() {
+    var n = ["Computer 1","Computer 2","Computer 3","Computer 4","Computer 5"];
+    var s = [22.7, 22.8, 22.9, 23.0, 23.1];
+    var old_n = JSON.parse(localStorage.getItem("names"));
+    var old_s = JSON.parse(localStorage.getItem("scores"));
+    old_n = n;
+    old_s = s;
+    localStorage.setItem("names", JSON.stringify(old_n));
+    localStorage.setItem("scores", JSON.stringify(old_s));
+  }
 
 // Function which returns a word from the above list at random
   function getWord() {
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   }
 
 // Function which splits a word into an array of individual letters
-  function make_array(word) {
+  function makeArray(word) {
     var word_array = [];
     for (var i = 0; i < word.length; i++) {
       word_array.push(word.charAt(i));
@@ -219,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   function enableType() {
     // Generating and displaying the word
-    var test_word = make_array(getWord());
+    var test_word = makeArray(getWord());
     displayWord(test_word);
     var array_check = lowercase(test_word);
     var tracker = 0;
